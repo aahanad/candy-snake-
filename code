@@ -1,1 +1,52 @@
-homework=crop candy snake pics😭
+import pygame
+import random
+pygame.init()
+WIDTH=850
+HEIGHT=900
+screen=pygame.display.set_mode((WIDTH,HEIGHT))
+bg=pygame.image.load("Background.PNG")
+bg=pygame.transform.scale(bg,(1500,900))
+game=True
+bg_x=0
+class Snake(pygame.sprite.Sprite):
+    def __init__(self,x,y,img):
+        super().__init__()
+        self.image=img
+        self.rect=self.image.get_rect()
+        self.rect.center=x,y
+class GummyWorm(pygame.sprite.Sprite):
+    def __init__(self,x,y,img):
+        super().__init__()
+        self.image=img
+        self.rect=self.image.get_rect()
+        self.rect.center=x,y
+class ExtraPoints(pygame.sprite.Sprite):
+    def __init__(self,x,y,img):
+        super().__init__()
+        self.image=img
+        self.rect=self.image.get_rect()
+        self.rect.center=x,y
+candy=ExtraPoints(400,300,img)
+#making a group for the sprite
+round=pygame.sprite.Group()
+round.add(candy)   
+class RegularPoints(pygame.sprite.Sprite):
+    def __init__(self,x,y,img):
+        super().__init__()
+        self.image=img
+        self.rect=self.image.get_rect()
+        self.rect.center=x,y
+img=pygame.image.load("pink gummy worm.PNG")
+snake=Snake(400,300,img)
+round=pygame.sprite.Group()
+round.add(snake)               
+while True:
+    for event in pygame.event.get():
+        if event.type==pygame.QUIT:
+            pygame.quit()
+    screen.blit(bg,(bg_x,0))
+    bg_x=bg_x-0.7
+    if abs(bg_x)>500:
+        bg_x=0
+    pygame.display.update()
+    #Make the lists for the group of images and complete displaying them
