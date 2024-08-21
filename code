@@ -9,44 +9,58 @@ bg=pygame.transform.scale(bg,(1500,900))
 game=True
 bg_x=0
 class Snake(pygame.sprite.Sprite):
-    def __init__(self,x,y,img):
+    def __init__(self,x,y):
         super().__init__()
-        self.image=img
+        self.image=pygame.image.load("green_gummy_worm.png")
         self.rect=self.image.get_rect()
+        
         self.rect.center=x,y
 class GummyWorm(pygame.sprite.Sprite):
     def __init__(self,x,y,img):
         super().__init__()
-        self.image=img
+        self.image=pygame.image.load(img)
+        self.image=pygame.transform.scale(self.image,(300,200))
         self.rect=self.image.get_rect()
         self.rect.center=x,y
 class ExtraPoints(pygame.sprite.Sprite):
     def __init__(self,x,y,img):
         super().__init__()
-        self.image=img
+        self.image=pygame.image.load(img)
+        self.image=pygame.transform.scale(self.image,(64,105))
         self.rect=self.image.get_rect()
         self.rect.center=x,y
+Extra=["gummy_bear_1.png","gummy_bear_2.png","gummy_bear_3.png"]
+img=random.choice(Extra)
 candy=ExtraPoints(400,300,img)
 #making a group for the sprite
-round=pygame.sprite.Group()
-round.add(candy)   
+candies=pygame.sprite.Group()
+candies.add(candy)   
 class RegularPoints(pygame.sprite.Sprite):
     def __init__(self,x,y,img):
         super().__init__()
         self.image=img
         self.rect=self.image.get_rect()
         self.rect.center=x,y
-img=pygame.image.load("pink gummy worm.PNG")
-snake=Snake(400,300,img)
+img=pygame.image.load("pink_gummy_worm.PNG")
+pos=pygame.mouse.get_pos()
+snake=Snake(pos[0],pos[1])
 round=pygame.sprite.Group()
 round.add(snake)               
 while True:
     for event in pygame.event.get():
         if event.type==pygame.QUIT:
             pygame.quit()
-    screen.blit(bg,(bg_x,0))
+        if event.type==pygame.MOUSEMOTION:
+            pos=pygame.mouse.get_pos()
+            snake=Snake(pos[0],pos[1])
+            round.draw(bg)
+            pygame.display.update()
+    screen.blit(bg,(0,0))
+    candies.draw(bg)
+    
     bg_x=bg_x-0.7
     if abs(bg_x)>500:
         bg_x=0
     pygame.display.update()
-    #Make the lists for the group of images and complete displaying them
+#Homework:
+#Try to make the candies and other candies to spawn from right to left like we did with the pipes in flappy bird
