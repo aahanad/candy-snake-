@@ -38,6 +38,7 @@ class ExtraPoints(pygame.sprite.Sprite):
     def __init__(self,x,y,img):
         super().__init__()
         self.image=pygame.image.load(img)
+#Make the regular candies images list, resize the gummy bears, make other candies to display like the regular ones
         self.image=pygame.transform.scale(self.image,(64,105))
         self.rect=self.image.get_rect()
         self.rect.center=x,y
